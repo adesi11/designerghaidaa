@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "designerghaida",
+  "name": "designer-ghaida",
   "main": "worker.js",
   "compatibility_date": "2026-07-17",
   "assets": { "directory": "./public", "binding": "ASSETS", "not_found_handling": "single-page-application" },
