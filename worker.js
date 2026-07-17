@@ -1,9 +1,9 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === "/api/briefs") {
+    if (url.pathname === "/api/briefs" || url.pathname === "/api/admin/briefs") {
       if (!env.DB) return json({ error: "Database DB is not connected" }, 503);
-      if (request.method === "POST") {
+      if (url.pathname === "/api/briefs" && request.method === "POST") {
         const body = await request.json();
         if (!body.id || !body.answers) return json({ error: "بيانات غير صالحة" }, 400);
         const now = Date.now();
@@ -15,7 +15,7 @@ export default {
             Number(body.currentStep || 0), now, now, body.status === "submitted" ? now : null).run();
         return json({ ok: true });
       }
-      if (request.method === "GET") {
+      if (url.pathname === "/api/admin/briefs" && request.method === "GET") {
         const result = await env.DB.prepare("SELECT * FROM brief_drafts ORDER BY updated_at DESC").all();
         return json({ briefs: result.results.map(r => ({...r, answers: JSON.parse(r.answers)})) });
       }
