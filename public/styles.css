@@ -5,6 +5,12 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* Keep closed modal screens truly hidden even when their component classes
+   declare flex/grid display modes. */
+[hidden] {
+  display: none !important;
+}
 @font-face {
   font-family: "Montserrat Arabic";
   src: url("/fonts/Montserrat-Arabic-Medium.otf") format("opentype");
