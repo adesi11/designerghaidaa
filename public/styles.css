@@ -116,6 +116,18 @@ textarea::placeholder { color:var(--muted); }
 .duration strong { font-weight:600; }
 .review-note { background:var(--soft); border-radius:12px; padding:20px; color:var(--muted); line-height:1.9; font-size:12px; margin:18px 0 0; }
 .review-actions { display:flex; justify-content:space-between; align-items:center; padding-top:28px; }
+.field-label { display:block; color:var(--muted); font-size:12px; font-weight:600; margin:26px 0 12px; }
+.logo-brief textarea { min-height:120px; }
+.upload-box { border:1px dashed var(--mid); border-radius:14px; padding:22px; display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center; cursor:pointer; margin-top:18px; }
+.upload-box:hover { border-color:var(--black); }
+.upload-box span { color:var(--muted); font-size:12px; }
+.upload-box input { margin-top:10px; max-width:100%; }
+.image-previews { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; }
+.image-previews figure { width:110px; height:110px; margin:0; position:relative; }
+.image-previews img { width:100%; height:100%; object-fit:cover; border-radius:10px; border:1px solid var(--line); }
+.image-previews button { position:absolute; top:5px; left:5px; width:26px; height:26px; border:0; border-radius:50%; background:var(--black); color:var(--white); cursor:pointer; }
+.logo-review { background:var(--soft); border-radius:10px; padding:14px 16px; margin-top:20px; font-size:12px; line-height:1.8; }
+.logo-review p { margin:2px 0; }
 @keyframes fade { from{opacity:0} to{opacity:1} }
 @keyframes rise { from{opacity:0;transform:translateY(24px) scale(.99)} to{opacity:1;transform:none} }
 @media (max-width:760px) {

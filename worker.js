@@ -1,6 +1,26 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === "/api/uploads" && request.method === "POST") {
+      if (!env.UPLOADS) return json({ error: "Storage UPLOADS is not connected" }, 503);
+      const type = request.headers.get("content-type") || "application/octet-stream";
+      if (!type.startsWith("image/")) return json({ error: "Images only" }, 415);
+      const body = await request.arrayBuffer();
+      if (!body.byteLength || body.byteLength > 2_000_000) return json({ error: "Image is too large" }, 413);
+      const key = `logo-references/${crypto.randomUUID()}.jpg`;
+      await env.UPLOADS.put(key, body, { httpMetadata: { contentType: type } });
+      return json({ url: `/api/admin/uploads/${encodeURIComponent(key)}` });
+    }
+    if (url.pathname.startsWith("/api/admin/uploads/") && request.method === "GET") {
+      if (!env.UPLOADS) return new Response("Storage not connected", { status: 503 });
+      const key = decodeURIComponent(url.pathname.slice("/api/admin/uploads/".length));
+      const object = await env.UPLOADS.get(key);
+      if (!object) return new Response("Not found", { status: 404 });
+      const headers = new Headers();
+      object.writeHttpMetadata(headers);
+      headers.set("cache-control", "private, max-age=3600");
+      return new Response(object.body, { headers });
+    }
     if (url.pathname === "/api/briefs" || url.pathname === "/api/admin/briefs") {
       if (!env.DB) return json({ error: "Database DB is not connected" }, 503);
       if (url.pathname === "/api/briefs" && request.method === "POST") {
