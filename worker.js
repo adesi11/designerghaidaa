@@ -1,6 +1,10 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if ((url.pathname === "/admin" || url.pathname === "/admin/") && request.method === "GET") {
+      url.pathname = "/admin/index.html";
+      return env.ASSETS.fetch(new Request(url, request));
+    }
     if (url.pathname === "/api/uploads" && request.method === "POST") {
       if (!env.UPLOADS) return json({ error: "Storage UPLOADS is not connected" }, 503);
       const type = request.headers.get("content-type") || "application/octet-stream";
