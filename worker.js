@@ -2,7 +2,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === "/api/health" && request.method === "GET") {
-      return json({ version: "v13", database: Boolean(env.DB), uploads: Boolean(env.UPLOADS) });
+      return json({ version: "v15", database: Boolean(env.DB), uploads: Boolean(env.UPLOADS) });
     }
     if ((url.pathname === "/admin" || url.pathname === "/admin/") && request.method === "GET") {
       url.pathname = "/admin/index.html";

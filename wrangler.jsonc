@@ -1,14 +1,21 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "designer-ghaida",
+  "name": "ghaida",
   "main": "worker.js",
   "compatibility_date": "2026-07-17",
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": true
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "designer-ghaida-db",
+      "database_id": "5f357db1-6c0c-4fb4-b8e1-c24826bddf17"
+    }
+  ],
   "r2_buckets": [{ "binding": "UPLOADS", "bucket_name": "designer-ghaida-uploads" }],
   "workers_dev": true
 }
